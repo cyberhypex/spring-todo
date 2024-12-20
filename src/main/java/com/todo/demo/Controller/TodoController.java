@@ -6,9 +6,7 @@ import com.todo.demo.Entity.Task;
 import com.todo.demo.Service.TaskServices;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -16,7 +14,7 @@ import java.util.List;
 
 
 @Controller
-@RequestMapping("/todo")
+@RequestMapping("/")
 public class TodoController {
 
     private final TaskServices taskServices;
@@ -24,10 +22,16 @@ public class TodoController {
     public TodoController(TaskServices taskServices) {
         this.taskServices = taskServices;
     }
-    @GetMapping("/getTasks")
+    @GetMapping
     public String getTasks(Model model){
         List<Task> tasks=taskServices.getAllTasks();
         model.addAttribute("tasks",tasks);
         return "tasks";
+    }
+
+    @PostMapping
+    public String addTasks(@RequestParam String title){
+        taskServices.createTask(title);
+        return "redirect:/";
     }
 }
