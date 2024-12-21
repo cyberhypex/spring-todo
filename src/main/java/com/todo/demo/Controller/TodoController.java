@@ -34,4 +34,17 @@ public class TodoController {
         taskServices.createTask(title);
         return "redirect:/";
     }
+
+    @GetMapping("/{ID}/delete")
+    public String deleteTask(@PathVariable Long ID){
+        taskServices.deleteTask(ID);
+        return "redirect:/";
+    }
+
+    @GetMapping("/{ID}/toggle")
+    public String markTask(@PathVariable Long ID){
+        taskServices.markTask(ID);
+        return "redirect:/";
+    }
+
 }
